@@ -1,0 +1,190 @@
+---
+interface Slide {
+  img: string;
+  imgMobile?: string;
+  alt: string;
+  text: string;
+  cta?: { label: string; href: string };
+}
+
+interface Props {
+  slides: Slide[];
+}
+
+const { slides } = Astro.props;
+---
+
+<div class="vslider">
+
+  <!-- Slides -->
+  <div class="vslider__track" id="vslider-track">
+    {slides.map((slide, i) => (
+      <div class="vslider__slide" data-slide={i}>
+        <picture>
+          {slide.imgMobile && (
+            <source srcset={slide.imgMobile} media="(max-width: 767px)" />
+          )}
+          <img src={slide.img} alt={slide.alt} class="vslider__img" />
+        </picture>
+        <div class="vslider__content">
+          <p class="vslider__text">{slide.text}</p>
+          {slide.cta && (
+            <a href={slide.cta.href} class="vslider__cta">{slide.cta.label}</a>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Navigation indicators -->
+  <nav class="vslider__nav" aria-label="Slide navigation">
+    <div class="vslider__pill">
+      {slides.map((_, i) => (
+        <button
+          class={`vslider__dot${i === 0 ? ' is-active' : ''}`}
+          data-target={i}
+          aria-label={`Gå til slide ${i + 1}`}
+        ></button>
+      ))}
+    </div>
+  </nav>
+
+</div>
+
+<style>
+.vslider {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Track */
+.vslider__track {
+  height: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.vslider__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Slides */
+.vslider__slide {
+  position: relative;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.vslider__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient + tekst */
+.vslider__content {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 3rem 2rem;
+  gap: 1.25rem;
+}
+
+.vslider__text {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--color-primary);
+  max-width: 480px;
+  opacity: 0.9;
+}
+
+.vslider__cta {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  padding: 0.5rem 1.75rem;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.vslider__cta:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+/* Navigation */
+.vslider__nav {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.vslider__pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border: 1px solid rgba(250, 247, 242, 0.5);
+  border-radius: 50px;
+}
+
+.vslider__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background-color: transparent;
+  border: 1px solid rgba(250, 247, 242, 0.5);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.3s, border-color 0.3s;
+  flex-shrink: 0;
+}
+
+.vslider__dot.is-active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+</style>
+
+<script>
+const track  = document.getElementById('vslider-track') as HTMLElement;
+const dots   = document.querySelectorAll('.vslider__dot');
+const slides = document.querySelectorAll('.vslider__slide');
+
+// Opdater aktiv dot ved scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const i = (entry.target as HTMLElement).dataset.slide;
+      dots.forEach(d => d.classList.remove('is-active'));
+      dots[Number(i)]?.classList.add('is-active');
+    }
+  });
+}, { root: track, threshold: 0.5 });
+
+slides.forEach(slide => observer.observe(slide));
+
+// Klik på dot scroller til slide
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const target = Number((dot as HTMLElement).dataset.target);
+    slides[target]?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>

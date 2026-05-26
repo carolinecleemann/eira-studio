@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqs = [
+  {
+    question: 'Hvordan foregår den første samtale?',
+    answer: 'Den første samtale tager udgangspunkt i dig, dine behov og det sted, du befinder dig i livet. Sammen mærker vi efter, om samarbejdet og terapien føles rigtigt for dig.',
+  },
+  {
+    question: 'Hvor foregår sessionerne?',
+    answer: 'De fleste af mine nuværende kunder foretrækker mit kontor på Frederiksgade i indre København. Alt afhængigt hvad der passer dig og din hverdag, finder vi en løsning der passer dig og dine behov.',
+  },
+  {
+    question: 'Hvor lang tid varer et forløb?',
+    answer: 'Alle forløb er individuelle og afhænger af dine behov og ønsker. Nogle har glæde af enkelte samtaler, mens andre ønsker et længere forløb.',
+  },
+  {
+    question: 'Hvordan aflyser eller ændrer jeg min tid?',
+    answer: 'Alle forløb er individuelle og afhænger af dine behov og ønsker. Nogle har glæde af enkelte samtaler, mens andre ønsker et længere forløb.',
+  },
+  {
+    question: 'Hvordan finder jeg yoga-hold info?',
+    answer: 'Min instagram @eirastudio er brugt primært til at holde interesserede kunder opdateret om fx kommende kundalini yoga-hold, herunder tid, sted og pris.',
+  },
+];
+---
+
+<BaseLayout title="FAQ">
+  <section class="faq">
+    {faqs.map((item, i) => (
+      <div class="faq__item" data-faq={i}>
+        <button class="faq__trigger" aria-expanded="false" aria-controls={`faq-answer-${i}`}>
+          <h2 class="faq__question">{item.question}</h2>
+          <span class="faq__icon" aria-hidden="true">
+            <svg class="icon-plus"  width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+              <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              <line x1="8"  y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+            <svg class="icon-minus" width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+              <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+
+        <div class="faq__body" id={`faq-answer-${i}`} aria-hidden="true">
+          <div class="faq__body-inner">
+            <p class="faq__answer">{item.answer}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+.faq {
+  padding-top: 6rem;
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--color-dark);
+}
+
+.faq__trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem var(--padding-inline);
+  text-align: left;
+  color: var(--color-dark);
+}
+
+.faq__question {
+  font-family: var(--font-body);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--color-dark);
+}
+
+.faq__icon {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--color-dark);
+}
+
+.icon-minus { display: none; }
+
+/* Åben tilstand */
+.faq__item.is-open .icon-plus  { display: none; }
+.faq__item.is-open .icon-minus { display: block; }
+
+/* Svar */
+.faq__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.faq__body.is-open {
+  grid-template-rows: 1fr;
+}
+
+.faq__body-inner {
+  overflow: hidden;
+}
+
+.faq__answer {
+  padding: 0 var(--padding-inline) 2rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-dark);
+  max-width: 480px;
+}
+</style>
+
+<script>
+document.querySelectorAll('.faq__item').forEach(item => {
+  const trigger = item.querySelector('.faq__trigger') as HTMLButtonElement;
+  const body    = item.querySelector('.faq__body') as HTMLElement;
+
+  trigger.addEventListener('click', () => {
+    const isOpen = item.classList.contains('is-open');
+
+    // Luk alle andre
+    document.querySelectorAll('.faq__item.is-open').forEach(other => {
+      other.classList.remove('is-open');
+      other.querySelector('.faq__body')?.classList.remove('is-open');
+      other.querySelector('.faq__trigger')?.setAttribute('aria-expanded', 'false');
+      other.querySelector('.faq__body')?.setAttribute('aria-hidden', 'true');
+    });
+
+    if (!isOpen) {
+      item.classList.add('is-open');
+      body.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.setAttribute('aria-hidden', 'false');
+    }
+  });
+});
+</script>

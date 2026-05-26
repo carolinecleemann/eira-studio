@@ -1,0 +1,267 @@
+---
+const cards = [
+  {
+    title: 'Individuel Psykoterapi',
+    href: '/individuel-psykoterapi',
+    imgDesktop: '/images/accordion-1-desktop_result.webp',
+    imgMobile:  '/images/accordion-1-mobile_result.webp',
+    text: 'Et nærvær der rum plads til både sårbarhed, udvikling og dig.',
+  },
+  {
+    title: 'Mindfullness',
+    href: '/mindfulness',
+    imgDesktop: '/images/accordion-2-desktop_result.webp',
+    imgMobile:  '/images/accordion-2-mobile_result.webp',
+    text: 'Blød med kærnen, balancen og indre balance gennem nærvær og ro.',
+  },
+  {
+    title: 'Kundalini Yoga',
+    href: '/kundalini-yoga',
+    imgDesktop: '/images/accordion-3-desktop_result.webp',
+    imgMobile:  '/images/accordion-3-mobile_result.webp',
+    text: 'Kundalini yoga skaber forbindelse mellem krop, energi og nærens.',
+  },
+];
+---
+
+<section class="img-acc">
+  {cards.map((card, i) => (
+    <div class="img-acc__item" data-index={i}>
+      <picture>
+        <source srcset={card.imgMobile} media="(max-width: 767px)" />
+        <img src={card.imgDesktop} alt={card.title} class="img-acc__img" />
+      </picture>
+      <div class="img-acc__overlay">
+        <div class="img-acc__bottom">
+          <div class="img-acc__header">
+            <h3 class="img-acc__title">{card.title}</h3>
+            <button class="img-acc__toggle" aria-label="Toggle">
+              <svg class="icon-plus" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                <line x1="8"  y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+              <svg class="icon-minus" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="img-acc__body">
+            <div class="img-acc__body-inner">
+              <p class="img-acc__text">{card.text}</p>
+              <a href={card.href} class="img-acc__btn">Læs mere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+.img-acc {
+  display: flex;
+  height: 70vh;
+  min-height: 480px;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.img-acc__item {
+  position: relative;
+  width: 497px;
+  flex-shrink: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.5s ease;
+}
+
+.img-acc__item.is-open {
+  width: 614px;
+}
+
+.img-acc__item.is-collapsed {
+  width: 372px;
+}
+
+.img-acc__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: blur(4px);
+  transform: scale(1.05);
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.img-acc__item.is-open .img-acc__img {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* Gradient overlay */
+.img-acc__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+  display: flex;
+  align-items: flex-end;
+}
+
+.img-acc__bottom {
+  width: 100%;
+  padding: 1.25rem;
+  color: var(--color-primary);
+}
+
+.img-acc__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.img-acc__title {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2vw, 1.3rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+.img-acc__toggle {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.img-acc__toggle svg circle,
+.img-acc__toggle svg line {
+  transition: stroke-width 0.2s ease;
+}
+
+.img-acc__toggle:hover svg circle {
+  stroke-width: 3;
+}
+
+.img-acc__toggle:hover svg line {
+  stroke-width: 3;
+}
+
+.icon-minus { display: none; }
+
+.img-acc__item.is-open .icon-plus  { display: none; }
+.img-acc__item.is-open .icon-minus { display: block; }
+
+/* Brødtekst */
+.img-acc__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+
+.img-acc__item.is-open .img-acc__body {
+  grid-template-rows: 1fr;
+}
+
+.img-acc__body-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.img-acc__text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-primary);
+  opacity: 0.85;
+  padding-top: 0.6rem;
+}
+
+.img-acc__btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  padding: 0.35rem 1rem;
+  width: fit-content;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+  margin-bottom: 0.25rem;
+}
+
+.img-acc__btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+/* Mobil: stables lodret */
+@media (max-width: 767px) {
+  .img-acc {
+    flex-direction: column;
+    height: auto;
+    min-height: unset;
+  }
+
+  .img-acc__item {
+    height: 160px;
+    flex: unset;
+    transition: height 0.5s ease;
+  }
+
+  .img-acc__item.is-open {
+    height: 420px;
+  }
+
+  .img-acc__item.is-collapsed {
+    height: 80px;
+    flex: unset;
+  }
+
+  .img-acc__img {
+    height: 100%;
+  }
+}
+</style>
+
+<script>
+const items = document.querySelectorAll('.img-acc__item');
+
+function resetAll() {
+  items.forEach(i => {
+    i.classList.remove('is-open');
+    i.classList.remove('is-collapsed');
+  });
+}
+
+items.forEach(item => {
+  const toggle = item.querySelector('.img-acc__toggle') as HTMLButtonElement;
+
+  // Minus-knap lukker og returnerer til default
+  toggle.addEventListener('click', (e) => {
+    if (item.classList.contains('is-open')) {
+      e.stopPropagation();
+      resetAll();
+    }
+  });
+
+  // Klik på kortet åbner det
+  item.addEventListener('click', () => {
+    if (item.classList.contains('is-open')) return;
+    resetAll();
+    item.classList.add('is-open');
+    items.forEach(other => {
+      if (other !== item) other.classList.add('is-collapsed');
+    });
+  });
+});
+</script>

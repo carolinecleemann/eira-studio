@@ -1,0 +1,377 @@
+---
+const navLinks = [
+  {
+    label: 'Ydelser',
+    href: '/ydelser',
+    sub: [
+      { label: 'Individuel Terapi', href: '/individuel-psykoterapi' },
+      { label: 'Kundalini Yoga',    href: '/kundalini-yoga' },
+      { label: 'Healing',           href: '/mindfulness' },
+    ],
+  },
+  {
+    label: 'Praktisk',
+    href: '/praktisk-info',
+    sub: [
+      { label: 'Priser', href: '/priser' },
+      { label: 'FAQ',    href: '/faq' },
+    ],
+  },
+  { label: 'Om mig',  href: '/om-mig' },
+  { label: 'Kontakt', href: '/kontakt' },
+  { label: 'Booking', href: '/book' },
+];
+
+const cvr = '12345678';
+---
+
+<footer class="footer">
+
+  <!-- Top bar — kun desktop -->
+  <div class="footer__topbar">
+    <button class="footer__scroll-top" aria-label="Gå til toppen">
+      <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
+        <line x1="10" y1="27" x2="10" y2="1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <polyline points="2,9 10,1 18,9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="footer__contact">
+      <a href="https://instagram.com/eirastudiodk" class="footer__contact-item" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+        </svg>
+        <span>@eirastudiodk</span>
+      </a>
+      <a href="mailto:Kirstencleemann.eirastudio@gmail.com" class="footer__contact-item">
+        <svg width="20" height="16" viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="1" width="22" height="18" rx="2"/>
+          <polyline points="1,1 12,12 23,1"/>
+        </svg>
+        <span>Kirstencleemann.eirastudio@gmail.com</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="footer__body">
+
+    <!-- Smal venstre strip — kun mobil -->
+    <div class="footer__strip">
+      <button class="footer__scroll-top" aria-label="Gå til toppen">
+        <svg width="16" height="22" viewBox="0 0 20 28" fill="none">
+          <line x1="10" y1="27" x2="10" y2="1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <polyline points="2,9 10,1 18,9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="footer__strip-icons">
+        <a href="https://instagram.com/eirastudiodk" aria-label="Instagram" target="_blank" rel="noopener" style="color:inherit">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+          </svg>
+        </a>
+        <a href="mailto:Kirstencleemann.eirastudio@gmail.com" aria-label="Email" style="color:inherit">
+          <svg width="20" height="16" viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="1" width="22" height="18" rx="2"/>
+            <polyline points="1,1 12,12 23,1"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Hoved-indhold: to kolonner på desktop, én kolonne på mobil -->
+    <div class="footer__main">
+
+      <!-- Venstre kolonne (desktop) / øverste sektion (mobil) -->
+      <div class="footer__col-nav">
+        <nav>
+          <ul>
+            {navLinks.map((link, i) => (
+              <li>
+                <a
+                  href={link.sub ? '#' : link.href}
+                  class={`footer-link${link.sub ? ' has-sub' : ''}${i === 0 ? ' footer-link--active' : ''}`}
+                  data-index={link.sub ? String(i) : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        {cvr && <p class="footer__cvr">CVR: {cvr}</p>}
+      </div>
+
+      <!-- Højre kolonne (desktop) / nederste sektion (mobil) -->
+      <div class="footer__col-sub">
+        <div class="footer__sub-area">
+          {navLinks.map((link, i) => link.sub && (
+            <div class="footer-sub" data-sub={String(i)} aria-hidden="true">
+              <ul>
+                {link.sub.map(sub => (
+                  <li><a href={sub.href} class="footer-sublink">{sub.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <div class="footer__logo">
+          <img src="/images/logolight.svg" alt="Eira Studio logo" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<style>
+.footer {
+  background-color: var(--color-accent-1);
+  color: var(--color-primary);
+}
+
+/* Top bar — desktop only */
+.footer__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--color-primary);
+}
+
+.footer__scroll-top {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.footer__contact {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.footer__contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+}
+
+.footer__contact-item:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Body */
+.footer__body {
+  display: flex;
+}
+
+/* Strip — skjult på desktop */
+.footer__strip {
+  display: none;
+}
+
+/* Hoved-indhold: to kolonner på desktop */
+.footer__main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  border-top: 1px solid var(--color-primary);
+}
+
+/* Nav-kolonne */
+.footer__col-nav {
+  border-right: 1px solid var(--color-primary);
+  padding: 2rem 2.5rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__col-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.footer-link {
+  font-family: var(--font-heading);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 300;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.footer-link--active,
+.footer-link.is-active {
+  font-weight: 700;
+}
+
+.footer-link:hover {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__cvr {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-family: var(--font-heading);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 300;
+  color: var(--color-primary);
+}
+
+/* Sub-kolonne */
+.footer__col-sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+.footer__sub-area {
+  position: relative;
+  flex: 1;
+}
+
+.footer-sub {
+  position: absolute;
+  top: 0; left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.footer-sub.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.footer-sub ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.footer-sublink {
+  font-family: var(--font-heading);
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  font-weight: 300;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.footer-sublink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer__logo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.footer__logo img {
+  width: clamp(60px, 8vw, 100px);
+  height: auto;
+}
+
+/* ---- Mobil ---- */
+@media (max-width: 767px) {
+  .footer__topbar { display: none; }
+
+  .footer__strip {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 56px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--color-primary);
+    padding: 1rem 0 1.5rem;
+  }
+
+  .footer__strip-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .footer__main {
+    grid-template-columns: 1fr;
+    border-top: none;
+  }
+
+  .footer__col-nav {
+    border-right: none;
+    padding: 1.5rem 1.25rem 1rem;
+  }
+
+  .footer__col-nav ul { gap: 1rem; }
+
+  .footer-link {
+    font-size: 1rem;
+    text-transform: none;
+  }
+
+  .footer__col-sub {
+    border-top: 1px solid var(--color-primary);
+    padding: 1.5rem 1.25rem;
+    min-height: 10rem;
+  }
+
+  .footer-sublink {
+    font-size: 1rem;
+    text-transform: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer__cvr {
+    padding-top: 1rem;
+  }
+}
+</style>
+
+<script>
+document.querySelectorAll('.footer__scroll-top').forEach(btn => {
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+});
+
+function closeAllFooterSubs() {
+  document.querySelectorAll('.footer-sub').forEach(s => s.classList.remove('is-visible'));
+  document.querySelectorAll('.footer-link.has-sub').forEach(l => l.classList.remove('is-active'));
+}
+
+document.querySelectorAll('.footer-link.has-sub').forEach(link => {
+  link.addEventListener('mouseenter', () => {
+    closeAllFooterSubs();
+    const index = (link as HTMLElement).dataset.index;
+    const sub = document.querySelector(`.footer-sub[data-sub="${index}"]`);
+    if (sub) {
+      sub.classList.add('is-visible');
+      link.classList.add('is-active');
+    }
+  });
+});
+
+document.querySelector('.footer__main')?.addEventListener('mouseleave', () => {
+  closeAllFooterSubs();
+});
+</script>

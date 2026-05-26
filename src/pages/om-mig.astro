@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const items = [
+  {
+    title: 'Min Drivkraft',
+    body: 'Jeg har interesseret mig for mennesker og forsøgt at forstå vores tanker, følelser og drivkraft hele mit liv. Det er det mest spændende i verden. Jeg har stor respekt for hver enkelt menneske og jeg er oprigtigt optaget af at forstå alle uden at generalisere. At dykke ned i den helt særlige psykologi, som hvert menneske rummer. At undersøge og udforske dette og alt muligt andet sammen med mine klienter elsker jeg. Jeg har ikke svarene, men jeg har værktøjer til at guide og undersøge vejen sammen med klienten.',
+  },
+  {
+    title: 'Konsekvent udvikling som behandler',
+    body: 'Arbejdet som terapeut kræver, at man selv udvikler sig og konstant holder fokus på egne blind-spots. Jeg har derfor gået i terapi løbende og supervision hver måned siden 2007. Derudover praktiserer jeg mindfulness og meditation og de holder sindet vågent og balanceret (eller i det mindste ved jeg, når jeg er i ubalance).',
+  },
+  {
+    title: 'Etik og ansvar',
+    body: 'At finde sin psykoterapeut er et personligt anliggende. Du skal kunne opbygge tillid, du skal kunne være sårbar, og du skal kunne lade dig forstyrre. Så giv dig tid, vær nysgerrig og omhyggelig. Jeg er medlem af foreningen IDPF for at sikre min fortsatte faglige udvikling, og for at du har et sted at henvende dig, hvis dine grænser ikke er blevet respekteret.',
+  },
+];
+---
+
+<BaseLayout title="Om mig">
+  <section class="om-mig">
+
+    <!-- Venstre: accordion -->
+    <div class="om-mig__content">
+      {items.map((item, i) => (
+        <div class="acc-item" data-acc={i}>
+          <button class="acc-trigger" aria-expanded="false" aria-controls={`acc-body-${i}`}>
+            <h2 class="acc-title">{item.title}</h2>
+            <span class="acc-circle" aria-hidden="true">
+              <svg class="icon-plus" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+              <svg class="icon-minus" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="acc-body" id={`acc-body-${i}`} aria-hidden="true">
+            <div class="acc-body-inner">
+              <p class="acc-text">{item.body}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Højre: sticky billede -->
+    <div class="om-mig__photo">
+      <img src="/images/om-mig.jpg" alt="Kirsten" />
+    </div>
+
+  </section>
+</BaseLayout>
+
+<style>
+.om-mig {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  padding-top: 5rem;
+  background-color: var(--color-primary);
+}
+
+.om-mig__photo {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.om-mig__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.om-mig__content {
+  color: var(--color-secondary);
+}
+
+.acc-item {
+  border-bottom: 1px solid rgba(122, 42, 42, 0.3);
+}
+
+.acc-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2.5rem 2rem;
+  text-align: left;
+  color: var(--color-secondary);
+}
+
+.acc-title {
+  font-family: var(--font-body);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.acc-circle {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--color-secondary);
+}
+
+.icon-minus { display: none; }
+
+.acc-item.is-open .icon-plus  { display: none; }
+.acc-item.is-open .icon-minus { display: block; }
+
+.acc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.acc-body.is-open {
+  grid-template-rows: 1fr;
+}
+
+.acc-body-inner {
+  overflow: hidden;
+}
+
+.acc-text {
+  padding: 0 2rem 2.5rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-secondary);
+  max-width: 520px;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .om-mig {
+    grid-template-columns: 1fr;
+  }
+
+  .om-mig__photo {
+    position: relative;
+    height: 60vw;
+    order: -1;
+  }
+}
+</style>
+
+<script>
+document.querySelectorAll('.acc-item').forEach(item => {
+  const trigger = item.querySelector('.acc-trigger') as HTMLButtonElement;
+  const body    = item.querySelector('.acc-body') as HTMLElement;
+
+  trigger.addEventListener('click', () => {
+    const isOpen = item.classList.contains('is-open');
+
+    document.querySelectorAll('.acc-item.is-open').forEach(other => {
+      other.classList.remove('is-open');
+      other.querySelector('.acc-body')?.classList.remove('is-open');
+      other.querySelector('.acc-trigger')?.setAttribute('aria-expanded', 'false');
+      other.querySelector('.acc-body')?.setAttribute('aria-hidden', 'true');
+    });
+
+    if (!isOpen) {
+      item.classList.add('is-open');
+      body.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.setAttribute('aria-hidden', 'false');
+    }
+  });
+});
+</script>

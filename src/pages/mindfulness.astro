@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VerticalSlider from '../components/VerticalSlider.astro';
+
+const slides = [
+  {
+    img: '/images/mindfullness-1-desktop_result.webp',
+    imgMobile: '/images/mindfullness-1-desktop_result.webp',
+    alt: 'Mindfulness',
+    text: 'Mindfulness er en form for meditation, der kan træne og kultivere dit sind til at blive mere afspændt, klart og fokuseret. Det kan være en stor hjælp, hvis du ligesom de fleste af os, har en travl hverdag på autopilot og er ubevidst om dine handlinger en stor del af tiden.',
+  },
+  {
+    img: '/images/mindfullness-2-desktop_result.webp',
+    alt: 'Mindfulness praksis',
+    text: 'Mindfulness er en form for meditation, der kan træne og kultivere dit sind til at blive mere afspændt, klart og fokuseret. Det kan være en stor hjælp, hvis du ligesom de fleste af os, har en travl hverdag på autopilot og er ubevidst om dine handlinger en stor del af tiden.',
+  },
+  {
+    img: '/images/mindfullness-3-desktop_result.webp',
+    alt: 'Mindfulness ro',
+    text: 'Jeg kan hjælpe dig til at blive mere nærværet, uden at blive konstant reaktiv i krop og handling. Det vil hjælpe dig som til at træffe bedre/mere autentisk over dine handlinger. Jeg tilbyder både individuelle og gruppe-forløb i stressreduktion.',
+    cta: { label: 'Book', href: '/book' },
+  },
+];
+---
+
+<BaseLayout title="Mindfulness">
+  <VerticalSlider slides={slides} />
+</BaseLayout>

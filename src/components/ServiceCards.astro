@@ -1,0 +1,133 @@
+---
+const cards = [
+  {
+    title: 'Individuel Terapi',
+    href: '/individuel-psykoterapi',
+    img: '/images/forside-grid-1_result.webp',
+    alt: 'Individuel Terapi',
+  },
+  {
+    title: 'Mindfulness',
+    href: '/mindfulness',
+    img: '/images/forside-grid-2_result.webp',
+    alt: 'Mindfulness',
+  },
+  {
+    title: 'Kundalini Yoga',
+    href: '/kundalini-yoga',
+    img: '/images/forside-grid-3_result.webp',
+    alt: 'Kundalini Yoga',
+  },
+];
+---
+
+<section class="service-cards">
+  {cards.map(card => (
+    <a href={card.href} class="service-card">
+      <img src={card.img} alt={card.alt} class="service-card__img" />
+      <div class="service-card__overlay">
+        <h3 class="service-card__title">{card.title}</h3>
+        <span class="service-card__btn">Læs mere</span>
+      </div>
+    </a>
+  ))}
+</section>
+
+<style>
+.service-cards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  padding: 4rem var(--padding-inline);
+  background-color: var(--color-primary);
+}
+
+.service-card {
+  position: relative;
+  flex: 1;
+  max-width: 340px;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+}
+
+.service-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  aspect-ratio: 3 / 4;
+  filter: blur(6px);
+  transform: scale(1.05);
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.service-card:hover .service-card__img {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* Gradient overlay */
+.service-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  gap: 0.6rem;
+}
+
+.service-card__title {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.service-card__btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  padding: 0.35rem 1rem;
+  width: fit-content;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.service-card:hover .service-card__btn {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+/* Mobil */
+@media (max-width: 767px) {
+  .service-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0.75rem;
+    padding: 2rem var(--padding-inline);
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .service-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .service-card {
+    flex-shrink: 0;
+    width: 72vw;
+    max-width: 280px;
+    scroll-snap-align: start;
+  }
+}
+</style>
