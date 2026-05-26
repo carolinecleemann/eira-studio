@@ -1,0 +1,172 @@
+/* ===========================
+   CUSTOM PROPERTIES
+=========================== */
+:root {
+  /* Farver */
+  --color-primary: #faf7f2; /* creme/hvid */
+  --color-secondary: #7a2a2a; /* bordeaux */
+  --color-accent-1: #3d4a35; /* mørkegrøn */
+  --color-accent-2: #c4c4b8; /* lysegrå */
+  --color-dark: #1a1a1a; /* næsten sort til tekst */
+
+  /* Typografi */
+  --font-heading: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Garamond", "EB Garamond", Georgia, serif;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+
+  /* Max bredde */
+  --max-width: 1200px;
+  --padding-inline: 1.25rem;
+}
+
+/* ===========================
+   RESET
+=========================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===========================
+   TYPOGRAFI
+=========================== */
+
+/* Mobile first */
+h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 400;
+}
+h5 {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 4rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+  h3 {
+    font-size: 2rem;
+  }
+  h4 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===========================
+   KNAPPER
+=========================== */
+.btn {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn--dark {
+  background-color: var(--color-accent-1);
+  color: var(--color-primary);
+  border-color: var(--color-accent-1);
+}
+
+.btn--dark:hover {
+  background-color: transparent;
+  color: var(--color-accent-1);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--color-accent-1);
+  border-color: var(--color-accent-1);
+}
+
+.btn--outline:hover {
+  background-color: var(--color-accent-1);
+  color: var(--color-primary);
+}
+
+/* ===========================
+   LAYOUT HJÆLPERE
+=========================== */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--padding-inline);
+}
+
+.section {
+  padding-block: var(--space-lg);
+}

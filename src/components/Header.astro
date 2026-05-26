@@ -1,0 +1,375 @@
+---
+const navLinks = [
+  {
+    label: 'Ydelser',
+    href: '/ydelser',
+    sub: [
+      { label: 'Individuel Psykoterapi', href: '/individuel-psykoterapi' },
+      { label: 'Mindfulness',            href: '/mindfulness' },
+      { label: 'Kundalini Yoga',         href: '/kundalini-yoga' },
+    ],
+  },
+  {
+    label: 'Praktisk',
+    href: '/praktisk-info',
+    sub: [
+      { label: 'Priser', href: '/priser' },
+      { label: 'FAQ',    href: '/faq' },
+    ],
+  },
+  {
+    label: 'Mød Kirsten',
+    href: '/moed-kirsten',
+    sub: [
+      { label: 'Mennesket bag',       href: '/om-mig' },
+      { label: 'Arbejde og baggrund', href: '/baggrund' },
+    ],
+  },
+  { label: 'Kontakt', href: '/kontakt' },
+  { label: 'Booking', href: '/book' },
+];
+---
+
+<header class="header">
+  <div class="header__inner">
+    <a href="/" class="header__logo" aria-label="Eira Studio — forside">
+      <img src="/images/logodark.svg" alt="Eira Studio logo" class="logo-svg" />
+    </a>
+    <button class="burger" aria-label="Åbn menu" aria-expanded="false" aria-controls="menu-overlay">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Menu Overlay -->
+<div class="menu-overlay" id="menu-overlay" aria-hidden="true">
+  <div class="menu-overlay__inner">
+
+    <!-- Smal venstre kolonne med luk-knap -->
+    <div class="menu-overlay__strip">
+      <button class="menu-overlay__close" aria-label="Luk menu">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+          <line x1="2" y1="2" x2="18" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="18" y1="2" x2="2" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Højre indhold -->
+    <div class="menu-overlay__content">
+
+      <!-- Top: navigation -->
+      <nav class="menu-overlay__nav">
+        <ul>
+          {navLinks.map((link, i) => (
+            <li>
+              <a
+                href={link.sub ? '#' : link.href}
+                class={`menu-link${link.sub ? ' has-sub' : ''}`}
+                data-index={link.sub ? String(i) : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Bund: sub-menuer + logo -->
+      <div class="menu-overlay__sub-section">
+        {navLinks.map((link, i) => link.sub && (
+          <div class="sub-menu" data-sub={String(i)} aria-hidden="true">
+            <ul>
+              {link.sub.map(sub => (
+                <li><a href={sub.href} class="sub-link">{sub.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <div class="menu-overlay__logo">
+          <img src="/images/logolight.svg" alt="Eira Studio logo" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+/* ---- Header ---- */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1rem 1.25rem;
+}
+
+.header__inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header__logo { display: block; }
+
+.logo-svg { width: 52px; height: auto; }
+
+/* Burger */
+.burger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  margin-top: 4px;
+}
+
+.burger__line {
+  display: block;
+  width: 26px;
+  height: 1.5px;
+  background-color: #5C2D1E;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.burger.is-active .burger__line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.burger.is-active .burger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger.is-active .burger__line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ---- Menu Overlay ---- */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background-color: var(--color-accent-1);
+  color: var(--color-primary);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.menu-overlay.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Indre: smal kolonne + højre indhold side om side */
+.menu-overlay__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+/* Smal venstre kolonne */
+.menu-overlay__strip {
+  width: 56px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-primary);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 1rem;
+}
+
+.menu-overlay__close {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* Højre indhold: nav øverst, sub-section nederst */
+.menu-overlay__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Nav */
+.menu-overlay__nav {
+  padding: 2rem 1.5rem 1.5rem;
+}
+
+.menu-overlay__nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.menu-link {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 5vw, 2rem);
+  font-weight: 300;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.menu-link:hover,
+.menu-link.is-active {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Sub-section */
+.menu-overlay__sub-section {
+  flex: 1;
+  border-top: 1px solid var(--color-primary);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
+
+/* Sub-menuer */
+.sub-menu {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.sub-menu.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sub-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sub-link {
+  font-family: var(--font-heading);
+  font-size: clamp(0.85rem, 3vw, 1.2rem);
+  font-weight: 400;
+  color: var(--color-primary);
+  text-decoration: none;
+  letter-spacing: normal;
+}
+
+.sub-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Logo */
+.menu-overlay__logo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menu-overlay__logo img {
+  width: clamp(60px, 18vw, 120px);
+  height: auto;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .menu-overlay__inner {
+    flex-direction: column;
+  }
+
+  .menu-overlay__strip {
+    width: auto;
+    border-right: none;
+    border-bottom: none;
+    justify-content: flex-end;
+    padding: 1rem 1.25rem 0.75rem 0;
+  }
+
+  .menu-overlay__content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    border-top: 1px solid var(--color-primary);
+  }
+
+  .menu-overlay__nav {
+    padding: 2rem 2rem 2rem 1.25rem;
+    border-right: 1px solid var(--color-primary);
+  }
+
+  .menu-overlay__nav ul {
+    gap: 1.5rem;
+  }
+
+  .menu-overlay__sub-section {
+    border-top: none;
+    padding: 1.5rem;
+  }
+
+  .sub-menu {
+    top: 2rem;
+    left: 1.5rem;
+  }
+}
+</style>
+
+<script>
+const burger  = document.querySelector('.burger') as HTMLButtonElement;
+const overlay = document.querySelector('.menu-overlay') as HTMLElement;
+const close   = document.querySelector('.menu-overlay__close') as HTMLButtonElement;
+
+function openMenu() {
+  overlay.classList.add('is-open');
+  overlay.setAttribute('aria-hidden', 'false');
+  burger.classList.add('is-active');
+  burger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMenu() {
+  overlay.classList.remove('is-open');
+  overlay.setAttribute('aria-hidden', 'true');
+  burger.classList.remove('is-active');
+  burger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  closeAllSubs();
+}
+
+function closeAllSubs() {
+  document.querySelectorAll('.sub-menu').forEach(s => s.classList.remove('is-visible'));
+  document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('is-active'));
+}
+
+burger.addEventListener('click', openMenu);
+close.addEventListener('click', closeMenu);
+
+document.querySelectorAll('.menu-link.has-sub').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const index = (link as HTMLElement).dataset.index;
+    const sub = document.querySelector(`.sub-menu[data-sub="${index}"]`);
+    const isOpen = sub?.classList.contains('is-visible');
+    closeAllSubs();
+    if (!isOpen && sub) {
+      sub.classList.add('is-visible');
+      link.classList.add('is-active');
+    }
+  });
+});
+
+overlay.querySelectorAll('.sub-link').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+overlay.querySelectorAll('.menu-link:not(.has-sub)').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+</script>
