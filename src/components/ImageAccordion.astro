@@ -78,7 +78,7 @@ const cards = [
 }
 
 .img-acc__item.is-open {
-  width: 614px;
+  width: 540px;
 }
 
 .img-acc__item.is-collapsed {
@@ -104,7 +104,7 @@ const cards = [
 .img-acc__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 60%, transparent 90%);
   display: flex;
   align-items: flex-end;
 }
@@ -140,23 +140,10 @@ const cards = [
   padding: 0;
 }
 
-.img-acc__toggle svg circle,
-.img-acc__toggle svg line {
-  transition: stroke-width 0.2s ease;
-}
-
-.img-acc__toggle:hover svg circle {
-  stroke-width: 3;
-}
-
-.img-acc__toggle:hover svg line {
-  stroke-width: 3;
-}
-
 .icon-minus { display: none; }
 
-.img-acc__item.is-open .icon-plus  { display: none; }
-.img-acc__item.is-open .icon-minus { display: block; }
+.img-acc__item.is-open .icon-plus  { display: none !important; }
+.img-acc__item.is-open .icon-minus { display: block !important; }
 
 /* Brødtekst */
 .img-acc__body {
@@ -210,20 +197,24 @@ const cards = [
     flex-direction: column;
     height: auto;
     min-height: unset;
+    width: 100%;
+    padding-inline: 1.5rem;
   }
 
   .img-acc__item {
-    height: 160px;
+    width: 100%;
+    height: 120px;
     flex: unset;
     transition: height 0.5s ease;
   }
 
   .img-acc__item.is-open {
-    height: 420px;
+    height: 300px;
+    width: 100%;
   }
 
   .img-acc__item.is-collapsed {
-    height: 80px;
+    height: 70px;
     flex: unset;
   }
 
@@ -240,13 +231,13 @@ function resetAll() {
   items.forEach(i => {
     i.classList.remove('is-open');
     i.classList.remove('is-collapsed');
+    i.querySelector('.img-acc__toggle')?.classList.remove('is-open');
   });
 }
 
 items.forEach(item => {
   const toggle = item.querySelector('.img-acc__toggle') as HTMLButtonElement;
 
-  // Minus-knap lukker og returnerer til default
   toggle.addEventListener('click', (e) => {
     if (item.classList.contains('is-open')) {
       e.stopPropagation();
@@ -254,11 +245,11 @@ items.forEach(item => {
     }
   });
 
-  // Klik på kortet åbner det
   item.addEventListener('click', () => {
     if (item.classList.contains('is-open')) return;
     resetAll();
     item.classList.add('is-open');
+    toggle.classList.add('is-open');
     items.forEach(other => {
       if (other !== item) other.classList.add('is-collapsed');
     });

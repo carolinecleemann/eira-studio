@@ -1,0 +1,292 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Booking" headerTheme="light">
+  <section class="booking">
+    <img src="/images/booking-baggrund_result.webp" alt="Booking" class="booking__bg" />
+
+    <div class="booking__overlay">
+      <div class="booking__grid">
+
+        <!-- Venstre: heading + tekst -->
+        <div class="booking__left">
+          <h1 class="booking__heading">Booking</h1>
+          <p class="booking__body">
+            Her finder du bookingmuligheder for terapi, mindfulness og yoga. Klik på det ønskede forløb for at se tider, information og booking.
+          </p>
+        </div>
+
+        <!-- Højre: knapper -->
+        <div class="booking__actions">
+          <button class="b-btn" data-modal>Terapi</button>
+          <button class="b-btn" data-modal>Mindfulness</button>
+          <button class="b-btn" data-modal>Yoga</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="booking-modal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <button class="modal-close" aria-label="Luk">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+          <line x1="2" y1="2" x2="18" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="18" y1="2" x2="2" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h2 class="modal-heading">OBS!</h2>
+      <p class="modal-body">
+        Da booking-funktionen endnu ikke er lanceret, kan du i mellemtiden få et indtryk af booking-flowet ved at klikke på knappen nedenfor.
+      </p>
+      <a
+        href="https://www.figma.com/proto/NdyhvMLUf8ItbbumPVgKRJ/afsluttende-projekt?node-id=634-4690&viewport=-1656%2C-340%2C0.14&t=eVGEWRnby7883l81-0&scaling=scale-down&content-scaling=fixed&starting-point-node-id=634%3A4690&show-proto-sidebar=1"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="modal-cta"
+      >Se booking flow</a>
+    </div>
+  </div>
+</BaseLayout>
+
+
+<style>
+.booking {
+  position: relative;
+}
+
+.booking__bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: blur(2px);
+}
+
+.booking__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  padding: 0 6rem;
+}
+
+.booking__grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.booking__left {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+}
+
+.booking__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 10vw, 5rem);
+  text-transform: uppercase;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.booking__body {
+  width: 600px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--color-primary);
+}
+
+.booking__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 50rem;
+  padding-right: 6rem;
+}
+
+.b-btn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  padding: 0.6rem 2rem;
+  width: 160px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.b-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-box {
+  background: var(--color-primary);
+  width: min(460px, 90vw);
+  padding: 3rem 2.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-dark);
+  padding: 4px;
+}
+
+.modal-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--color-dark);
+  text-align: center;
+}
+
+.modal-body {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-dark);
+  text-align: center;
+  max-width: 320px;
+}
+
+.modal-cta {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  background-color: var(--color-accent-1);
+  border-radius: 50px;
+  padding: 0.6rem 1.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.modal-cta:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .booking {
+    min-height: 100vh;
+  }
+
+  .booking__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .booking__overlay {
+    padding: 2rem 1.5rem;
+    align-items: flex-start;
+    padding-top: 55%;
+  }
+
+  .booking__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .booking__left {
+    gap: 10rem;
+  }
+
+  .booking__heading {
+    font-size: 1.5rem;
+  }
+
+  .booking__body {
+    font-size: 0.75rem;
+    width: 100%;
+  }
+
+  .booking__actions {
+    margin-top: 3rem;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 0;
+  }
+
+  .b-btn {
+    font-size: 0.65rem;
+    padding: 0.4rem 1rem;
+    width: 130px;
+    text-align: center;
+  }
+}
+</style>
+
+<script>
+const modal = document.getElementById('booking-modal') as HTMLElement;
+
+document.querySelectorAll('[data-modal]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+  });
+});
+
+document.querySelector('.modal-close')?.addEventListener('click', () => {
+  modal.classList.remove('is-open');
+  modal.setAttribute('aria-hidden', 'true');
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+});
+</script>

@@ -1,4 +1,9 @@
 ---
+interface Props {
+  theme?: 'dark' | 'light';
+}
+const { theme = 'dark' } = Astro.props;
+
 const navLinks = [
   {
     label: 'Ydelser',
@@ -30,10 +35,10 @@ const navLinks = [
 ];
 ---
 
-<header class="header">
+<header class={`header${theme === 'light' ? ' header--light' : ''}`}>
   <div class="header__inner">
     <a href="/" class="header__logo" aria-label="Eira Studio — forside">
-      <img src="/images/logodark.svg" alt="Eira Studio logo" class="logo-svg" />
+      <img src={theme === 'light' ? '/images/logolight.svg' : '/images/logodark.svg'} alt="Eira Studio logo" class="logo-svg" />
     </a>
     <button class="burger" aria-label="Åbn menu" aria-expanded="false" aria-controls="menu-overlay">
       <span class="burger__line"></span>
@@ -64,14 +69,23 @@ const navLinks = [
       <nav class="menu-overlay__nav">
         <ul>
           {navLinks.map((link, i) => (
-            <li>
-              <a
-                href={link.sub ? '#' : link.href}
-                class={`menu-link${link.sub ? ' has-sub' : ''}`}
-                data-index={link.sub ? String(i) : undefined}
-              >
+            <li class={link.sub ? 'has-sub-item' : ''}>
+              <a href={link.href} class="menu-link">
                 {link.label}
               </a>
+              {link.sub && (
+                <button class="sub-toggle" data-index={String(i)} aria-label="Vis undermenu">
+                  <svg class="sub-icon-plus" width="22" height="22" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                    <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                    <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="sub-icon-minus" width="22" height="22" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                    <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              )}
             </li>
           ))}
         </ul>
@@ -88,9 +102,9 @@ const navLinks = [
             </ul>
           </div>
         ))}
-        <div class="menu-overlay__logo">
+        <a href="/" class="menu-overlay__logo" aria-label="Eira Studio — forside">
           <img src="/images/logolight.svg" alt="Eira Studio logo" />
-        </div>
+        </a>
       </div>
 
     </div>
@@ -140,6 +154,10 @@ const navLinks = [
 .burger.is-active .burger__line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .burger.is-active .burger__line:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .burger.is-active .burger__line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.header--light .burger__line {
+  background-color: var(--color-primary);
+}
 
 /* ---- Menu Overlay ---- */
 .menu-overlay {
@@ -204,6 +222,12 @@ const navLinks = [
   gap: 1.25rem;
 }
 
+.has-sub-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .menu-link {
   font-family: var(--font-heading);
   font-size: clamp(1.1rem, 5vw, 2rem);
@@ -220,6 +244,27 @@ const navLinks = [
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+
+.sub-toggle {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.25s ease;
+}
+
+.sub-toggle:hover {
+  opacity: 1;
+}
+
+.sub-icon-minus { display: none; }
+
+.sub-toggle.is-active .sub-icon-plus  { display: none; }
+.sub-toggle.is-active .sub-icon-minus { display: block; }
 
 /* Sub-section */
 .menu-overlay__sub-section {
@@ -346,21 +391,22 @@ function closeMenu() {
 function closeAllSubs() {
   document.querySelectorAll('.sub-menu').forEach(s => s.classList.remove('is-visible'));
   document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('is-active'));
+  document.querySelectorAll('.sub-toggle').forEach(b => b.classList.remove('is-active'));
 }
 
 burger.addEventListener('click', openMenu);
 close.addEventListener('click', closeMenu);
 
-document.querySelectorAll('.menu-link.has-sub').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const index = (link as HTMLElement).dataset.index;
+document.querySelectorAll('.sub-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const index = (btn as HTMLElement).dataset.index;
     const sub = document.querySelector(`.sub-menu[data-sub="${index}"]`);
     const isOpen = sub?.classList.contains('is-visible');
     closeAllSubs();
     if (!isOpen && sub) {
       sub.classList.add('is-visible');
-      link.classList.add('is-active');
+      btn.classList.add('is-active');
+      btn.previousElementSibling?.classList.add('is-active');
     }
   });
 });

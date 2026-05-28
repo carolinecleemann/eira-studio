@@ -94,13 +94,13 @@ const { slides } = Astro.props;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 3rem 2rem;
+  padding: 3rem 2rem 4rem 3.5rem;
   gap: 1.25rem;
 }
 
 .vslider__text {
   font-family: var(--font-heading);
-  font-weight: 300;
+  font-weight: 500;
   font-size: 0.75rem;
   line-height: 1.7;
   color: var(--color-primary);
@@ -109,8 +109,9 @@ const { slides } = Astro.props;
 }
 
 .vslider__cta {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 300;
+  align-self: flex-end;
   font-size: 0.85rem;
   color: var(--color-primary);
   border: 1px solid var(--color-primary);

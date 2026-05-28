@@ -3,5 +3,382 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Mød Kirsten">
-  <h1>Mød Kirsten</h1>
+
+  <!-- 1. Intro -->
+  <section class="mk-intro">
+    <h1 class="mk-intro__heading">Mød Kirsten</h1>
+    <p class="mk-intro__body">
+      Et personligt indblik i mit arbejde, mine værdier og den måde, jeg møder mennesker på.
+    </p>
+  </section>
+
+  <!-- 2. Video -->
+  <section class="mk-video">
+    <div class="mk-video__wrap">
+      <video class="mk-video__el" poster="/images/m-intro-1-desktop_result.webp" controls preload="none">
+        <source src="/videos/Sequence 03.mp4" type="video/mp4" />
+      </video>
+      <button class="mk-video__play" aria-label="Afspil video">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="white" stroke-width="1.5"/>
+          <polygon points="18,14 32,22 18,30" fill="white"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- 3. Testimonial -->
+  <section class="mk-testimonial">
+    <p class="mk-testimonial__name">Michael, Musiker</p>
+    <p class="mk-testimonial__role">tidl. klient</p>
+    <blockquote class="mk-testimonial__quote">
+      "Kirsten har en helt naturlig evne til at skabe det trygge og nærværende rum, hun har i sine sessioner. Hun giver altid plads til det, der er sværest at sige højt. Jeg har ikke mødt mange terapeuter med samme evne til at lytte — hun møder én med oprigtig interesse og nærvær, der er sjældent."
+    </blockquote>
+  </section>
+
+  <!-- 4. Mennesket bag -->
+  <section class="mk-split">
+    <h2 class="mk-split__heading">Mennesket bag</h2>
+    <div class="mk-split__image">
+      <picture>
+        <source srcset="/images/m-kirsten-1-mobile_result.webp" media="(max-width: 767px)" />
+        <img src="/images/m-kirsten-1-desktop_result.webp" alt="Kirsten" />
+      </picture>
+    </div>
+    <div class="mk-split__bottom">
+      <p class="mk-split__body">
+        Jeg tror på, at ægthed og nærhed er forudsætninger for ethvert godt terapeutisk arbejde. Bag rollen som terapeut er jeg et menneske med egne erfaringer, fejl og læreprocesser. Det er den viden, jeg bringer med ind i rummet — ikke som ekspert, men som medmenneske.
+      </p>
+      <a href="/om-mig" class="mk-btn">Læs mere</a>
+    </div>
+  </section>
+
+  <!-- Spacer -->
+  <div class="mk-spacer"></div>
+
+  <!-- 5. Mit arbejde og baggrund -->
+  <section class="mk-split mk-split--reverse">
+    <div class="mk-split__image">
+      <picture>
+        <source srcset="/images/m-kirsten-2-mobile_result.webp" media="(max-width: 767px)" />
+        <img src="/images/m-kirsten-2-desktop_result.webp" alt="Kirsten arbejder" />
+      </picture>
+    </div>
+    <h2 class="mk-split__heading mk-split__heading--right">Mit arbejde og baggrund</h2>
+    <div class="mk-split__bottom mk-split__bottom--right">
+      <p class="mk-split__body">
+        Mit arbejde bygger på mange års faglig erfaring inden for psykoterapi, mindfulness og Kundalini yoga. Jeg er uddannet og certificeret inden for flere retninger, og jeg udvikler mig kontinuerligt som behandler — fordi det er det, jeg skylder mine klienter.
+      </p>
+      <a href="/om-mig" class="mk-btn">Læs mere</a>
+    </div>
+  </section>
+
 </BaseLayout>
+
+<style>
+/* ── Intro ── */
+.mk-intro {
+  background-color: var(--color-primary);
+  padding: 16rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.mk-intro__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.mk-intro__body {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--color-secondary);
+  opacity: 0.8;
+  max-width: 530px;
+}
+
+/* ── Video ── */
+.mk-video {
+  background-color: var(--color-primary);
+  padding: 2rem 1.5rem 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.mk-video__wrap {
+  position: relative;
+  width: 90%;
+  aspect-ratio: 17 / 9;
+  background: #000;
+  cursor: pointer;
+}
+
+.mk-video__el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mk-video__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.mk-video__play:hover {
+  opacity: 0.8;
+}
+
+.mk-video__play.is-hidden {
+  display: none;
+}
+
+/* ── Testimonial ── */
+.mk-testimonial {
+  background-color: var(--color-primary);
+  padding: 15rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+.mk-testimonial__name {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+.mk-testimonial__role {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-secondary);
+  opacity: 0.75;
+  margin-bottom: 1.25rem;
+}
+
+.mk-testimonial__quote {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+  line-height: 1.9;
+  color: var(--color-secondary);
+  opacity: 0.85;
+  font-style: normal;
+}
+
+/* ── Spacer ── */
+.mk-spacer {
+  background-color: var(--color-primary);
+  height: 20rem;
+}
+
+/* ── Split sections ── */
+.mk-split {
+  background-color: var(--color-primary);
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "heading image"
+    "bottom  image";
+  padding: 0;
+  gap: 0;
+}
+
+.mk-split--reverse {
+  grid-template-columns: 400px 1fr;
+  grid-template-areas:
+    "image heading"
+    "image bottom";
+}
+
+.mk-split__heading  { grid-area: heading; }
+.mk-split__image    { grid-area: image; }
+.mk-split__bottom   { grid-area: bottom; }
+
+.mk-split__heading {
+  padding: 0 3rem;
+}
+
+.mk-split__heading--right {
+  text-align: right;
+}
+
+.mk-split__bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0 3rem 1.5rem;
+}
+
+.mk-split__bottom--right {
+  flex-direction: row-reverse;
+}
+
+.mk-split__bottom .mk-btn {
+  align-self: flex-end;
+  flex-shrink: 0;
+}
+
+.mk-split__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.mk-split__body {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--color-secondary);
+  opacity: 0.8;
+  max-width: 440px;
+}
+
+.mk-split__image picture {
+  display: block;
+  width: 100%;
+}
+
+.mk-split__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mk-btn {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  background-color: var(--color-accent-1);
+  border-radius: 50px;
+  padding: 0.6rem 1.75rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.2s;
+  align-self: flex-start;
+}
+
+.mk-split__text--right .mk-btn {
+  align-self: flex-end;
+}
+
+.mk-btn:hover {
+  opacity: 0.85;
+}
+
+/* ── Desktop ── */
+@media (min-width: 768px) {
+  .mk-intro {
+    padding: 10rem 6rem 4rem;
+  }
+
+  .mk-video {
+    padding: 2rem 6rem 6rem;
+  }
+
+  .mk-testimonial {
+    padding: 8rem 4rem;
+  }
+
+  .mk-split__text {
+    padding: 0 3rem 1.5rem;
+  }
+}
+
+/* ── Mobil ── */
+@media (max-width: 767px) {
+  .mk-split {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "heading image"
+      "bottom  bottom";
+  }
+
+  .mk-split--reverse {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "image   heading"
+      "bottom  bottom";
+  }
+
+  .mk-intro {
+     padding: 20rem 1.5rem 3rem;
+     gap: 3rem;
+  
+  }
+
+
+  .mk-intro__body {
+    max-width: 350px;
+   
+  }
+
+  .mk-split__heading {
+    padding: 0 0.75rem;
+    font-size: 1.1rem;
+    align-self: start;
+  }
+
+  .mk-split__bottom {
+    padding: 1.25rem 0.75rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .mk-split__bottom--right {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .mk-split__bottom--right .mk-btn {
+    align-self: flex-end;
+  }
+}
+</style>
+
+<script>
+const playBtn = document.querySelector('.mk-video__play') as HTMLButtonElement;
+const video = document.querySelector('.mk-video__el') as HTMLVideoElement;
+
+playBtn?.addEventListener('click', () => {
+  video.play();
+  playBtn.classList.add('is-hidden');
+});
+
+video?.addEventListener('pause', () => {
+  playBtn.classList.remove('is-hidden');
+});
+</script>

@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VerticalSlider from '../components/VerticalSlider.astro';
+
+const slides = [
+  {
+    img: '/images/yoga-1-desktop_result.webp',
+    alt: 'Kundalini Yoga',
+    text: 'Kundalini yoga er en yogaform, som lærer os at fokusere på at forbinde din krop, sjæl og ånd. Her finder du praksisser, der har en særlig intention om at vække og frigøre den energi, der hviler i dig.',
+  },
+  {
+    img: '/images/yoga-2-desktop_result.webp',
+    alt: 'Kundalini Yoga praksis',
+    text: 'Under en Kundalini yoga-session skal du mærke kraften ved at fremsige mantras, bruge et kraftfuldt åndedræt og opleve magien ved bevægelse. Samtidig inviterer Kundalini yoga til indadvendthed: til at mærke din krops præmisser uden hensyntagen til ydre regler.',
+  },
+  {
+    img: '/images/yoga-3-desktop_result.webp',
+    alt: 'Kundalini Yoga ro',
+    text: 'Jeg tilbyder Kundalini yogaforløb til mindre grupper og familier, som ønsker at fordybe sig i denne magtfulde yogaform og opleve dens transformerende virkning på krop og sind.',
+    cta: { label: 'Kontakt', href: '/kontakt' },
+  },
+];
+---
+
+<BaseLayout title="Kundalini Yoga">
+
+  <!-- Intro -->
+  <section class="ky-intro">
+    <h1 class="ky-intro__heading">Kundalini Yoga</h1>
+    <div class="ky-intro__bottom">
+      <p class="ky-intro__body">
+        Vågn op, mærk din energi og find din indre kraft.<br />
+        Kundalini yoga — for krop, sjæl og ånd.
+      </p>
+      <a href="/om-mig#certifiseringer" class="ky-intro__cta">Se certifiseringer</a>
+    </div>
+  </section>
+
+  <!-- Slides -->
+  <VerticalSlider slides={slides} />
+
+</BaseLayout>
+
+<style>
+.ky-intro {
+  background-color: var(--color-primary);
+  padding: 8rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 55vh;
+}
+
+.ky-intro__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.ky-intro__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.ky-intro__body {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--color-secondary);
+  opacity: 0.8;
+  flex: 1;
+  min-width: 0;
+}
+
+.ky-intro__cta {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  background-color: var(--color-accent-1);
+  border-radius: 50px;
+  padding: 0.6rem 1.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.ky-intro__cta:hover {
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .ky-intro {
+    padding: 12rem 6rem 4rem;
+    min-height: 65vh;
+  }
+}
+</style>

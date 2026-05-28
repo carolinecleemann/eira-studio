@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Praktisk information" headerTheme="light">
+  <section class="praktisk">
+    <img src="/images/praktisk-baggrund_result.webp" alt="Praktisk information" class="praktisk__bg" />
+
+    <div class="praktisk__overlay">
+      <div class="praktisk__grid">
+
+        <!-- Venstre: heading + tekst -->
+        <div class="praktisk__left">
+          <h1 class="praktisk__heading">Praktisk<br />information</h1>
+          <p class="praktisk__body">
+            Det kan være rart at have styr på det praktiske, før man tager det første skridt. Her kan du læse mere om priser, forløb og praktiske spørgsmål omkring terapi, mindfulness og yoga.
+          </p>
+        </div>
+
+        <!-- Højre: knapper -->
+        <div class="praktisk__actions">
+          <a href="/priser" class="p-btn">Priser</a>
+          <a href="/faq" class="p-btn">FAQ</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+
+<style>
+.praktisk {
+  position: relative;
+}
+
+.praktisk__bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: blur(2px);
+}
+
+.praktisk__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  padding: 0 6rem;
+}
+
+.praktisk__grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.praktisk__left {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+}
+
+.praktisk__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 10vw, 5rem);
+  text-transform: uppercase;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.praktisk__body {
+  width: 600px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--color-primary);
+}
+
+.praktisk__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 50rem;
+  padding-right: 6rem;
+}
+
+.p-btn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  padding: 0.6rem 2rem;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.p-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+@media (max-width: 767px) {
+  .praktisk {
+    min-height: 100vh;
+  }
+
+  .praktisk__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .praktisk__overlay {
+    padding: 2rem 1.5rem;
+    align-items: flex-start;
+    padding-top: 55%;
+  }
+
+  .praktisk__grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .praktisk__left {
+    gap: 10rem;
+  }
+
+  .praktisk__heading {
+    font-size: 1.5rem;
+  }
+
+  .praktisk__body {
+    font-size: 0.75rem;
+    width: 100%;
+  }
+
+  .praktisk__actions {
+    margin-top: 3rem;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 0;
+  }
+
+  .p-btn {
+    font-size: 0.65rem;
+    padding: 0.4rem 1rem;
+    width: 100px;
+    text-align: center;
+  }
+}
+</style>

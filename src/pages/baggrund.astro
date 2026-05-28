@@ -1,7 +1,221 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import svgContent from '../../public/images/tidslinje.svg?raw';
 ---
 
 <BaseLayout title="Arbejde og baggrund">
-  <h1>Arbejde og baggrund</h1>
+
+  <!-- Intro -->
+  <section class="bg-intro">
+    <h1 class="bg-intro__heading">Arbejde og baggrund</h1>
+    <p class="bg-intro__body">
+      Mit arbejde er formet gennem mange års erfaring, uddannelse og et kontinuerligt ønske om at forstå mennesket i dybden. Her kan du følge nogle af de vigtigste skridt i min faglige og personlige udvikling.
+    </p>
+  </section>
+
+  <!-- Tidslinje -->
+  <div class="timeline-wrapper">
+    <Fragment set:html={svgContent} />
+  </div>
+
+  <!-- Testimonial -->
+  <section class="bg-testimonial">
+    <p class="bg-testimonial__name">Simon, ingenør</p>
+    <p class="bg-testimonial__role">tidl. klient</p>
+    <blockquote class="bg-testimonial__quote">
+      "Kirsten skaber et rum med nærvær, tillid og oprigtig interesse. Hun har hjulpet mig til større selvforståelse og en langt bedre kontakt til både mine tanker, handlemønstre og kroppens signaler. Jeg føler mig i dag mere bevidst, mere rolig og langt bedre til at acceptere mig selv, som jeg er."
+    </blockquote>
+    <a href="/om-mig" class="btn-dark">Mød Kirsten</a>
+  </section>
+
 </BaseLayout>
+
+<style is:global>
+.timeline-wrapper svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Skjul alle infobokse som standard */
+#info-2006,
+#info-2011,
+#_info-2015,
+#info-2025,
+#info-2026 {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+#info-2006.is-visible,
+#info-2011.is-visible,
+#_info-2015.is-visible,
+#info-2025.is-visible,
+#info-2026.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#punkter > g {
+  cursor: pointer;
+}
+
+#punkter > g circle {
+  transition: r 0.2s ease;
+}
+
+#punkter > g:hover circle {
+  r: 8;
+}
+</style>
+
+<style>
+/* Intro */
+.bg-intro {
+  background-color: var(--color-primary);
+  padding: 18rem 0 2rem 3rem;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bg-intro__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-secondary);
+  line-height: 1.1;
+}
+
+.bg-intro__body {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--color-secondary);
+  opacity: 0.85;
+  max-width: 420px;
+}
+
+/* Tidslinje */
+.timeline-wrapper {
+  width: 100%;
+  max-width: clamp(500px, 90vw, 1200px);
+  margin-inline: auto;
+  padding: 0;
+  background-color: var(--color-primary);
+}
+
+/* Testimonial */
+.bg-testimonial {
+  background-color: var(--color-primary);
+  padding: 4rem 0 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+.bg-testimonial__name {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+.bg-testimonial__role {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-secondary);
+  opacity: 0.75;
+  margin-bottom: 1.25rem;
+}
+
+.bg-testimonial__quote {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+  line-height: 1.9;
+  color: var(--color-secondary);
+  opacity: 0.85;
+  font-style: normal;
+  margin-bottom: 1.5rem;
+}
+
+.btn-dark {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  background-color: var(--color-accent-1);
+  border-radius: 50px;
+  padding: 0.6rem 1.75rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.2s;
+}
+
+.btn-dark:hover {
+  opacity: 0.85;
+}
+
+/* Mobil */
+@media (max-width: 767px) {
+  .bg-intro {
+    max-width: 100%;
+    padding: 18rem 1.5rem 2rem;
+  }
+
+  .timeline-wrapper {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .bg-testimonial {
+    padding: 4rem 1.5rem 6rem;
+  }
+}
+</style>
+
+<script>
+const dotToBox: Record<string, string> = {
+  'dot-2006': 'info-2006',
+  'dot-2011': 'info-2011',
+  'dot-2015': '_info-2015',
+  'dot-2025': 'info-2025',
+  'dot-2026': 'info-2026',
+};
+
+const boxIds = Object.values(dotToBox);
+
+function hideAll() {
+  boxIds.forEach(id => {
+    document.getElementById(id)?.classList.remove('is-visible');
+  });
+}
+
+Object.entries(dotToBox).forEach(([dotId, boxId]) => {
+  const dot = document.getElementById(dotId);
+  if (!dot) return;
+
+  dot.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const box = document.getElementById(boxId);
+    const isOpen = box?.classList.contains('is-visible');
+    hideAll();
+    if (!isOpen) {
+      box?.classList.add('is-visible');
+    }
+  });
+});
+
+document.addEventListener('click', hideAll);
+</script>

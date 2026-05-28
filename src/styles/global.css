@@ -3,7 +3,7 @@
 =========================== */
 :root {
   /* Farver */
-  --color-primary: #faf7f2; /* creme/hvid */
+  --color-primary: #FEFCE8; /* creme/hvid */
   --color-secondary: #7a2a2a; /* bordeaux */
   --color-accent-1: #3d4a35; /* mørkegrøn */
   --color-accent-2: #c4c4b8; /* lysegrå */
@@ -40,6 +40,8 @@ html {
   font-size: 16px;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -47,6 +49,13 @@ body {
   background-color: var(--color-primary);
   color: var(--color-dark);
   line-height: 1.6;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+main {
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 img {

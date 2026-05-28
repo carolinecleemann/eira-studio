@@ -15,52 +15,169 @@ const faqs = [
     answer: 'Alle forløb er individuelle og afhænger af dine behov og ønsker. Nogle har glæde af enkelte samtaler, mens andre ønsker et længere forløb.',
   },
   {
-    question: 'Hvordan aflyser eller ændrer jeg min tid?',
-    answer: 'Alle forløb er individuelle og afhænger af dine behov og ønsker. Nogle har glæde af enkelte samtaler, mens andre ønsker et længere forløb.',
-  },
-  {
     question: 'Hvordan finder jeg yoga-hold info?',
     answer: 'Min instagram @eirastudio er brugt primært til at holde interesserede kunder opdateret om fx kommende kundalini yoga-hold, herunder tid, sted og pris.',
+  },
+  {
+    question: 'Hvordan aflyser eller ændrer jeg min tid?',
+    answer: 'Aflysning skal ske senest 24 timer før sessionen. Kontakt mig på mail eller telefon for at ændre eller aflyse din tid.',
   },
 ];
 ---
 
-<BaseLayout title="FAQ">
+<BaseLayout title="FAQ" headerTheme="light">
   <section class="faq">
-    {faqs.map((item, i) => (
-      <div class="faq__item" data-faq={i}>
-        <button class="faq__trigger" aria-expanded="false" aria-controls={`faq-answer-${i}`}>
-          <h2 class="faq__question">{item.question}</h2>
-          <span class="faq__icon" aria-hidden="true">
-            <svg class="icon-plus"  width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
-              <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-              <line x1="8"  y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-            </svg>
-            <svg class="icon-minus" width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
-              <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-            </svg>
-          </span>
-        </button>
+    <img src="/images/faq-baggrund_result.webp" alt="FAQ" class="faq__bg" />
 
-        <div class="faq__body" id={`faq-answer-${i}`} aria-hidden="true">
-          <div class="faq__body-inner">
-            <p class="faq__answer">{item.answer}</p>
+    <div class="faq__overlay">
+      <div class="faq__inner">
+
+        <!-- Top: heading + tekst til venstre, knap til højre -->
+        <div class="faq__top">
+          <h1 class="faq__heading">FAQ</h1>
+          <div class="faq__right">
+            <a href="mailto:Kirstencleemann.eirastudio@gmail.com" class="faq__mail-btn">Mail</a>
           </div>
+          <p class="faq__body">
+            Her finder du svar på nogle af de spørgsmål, der ofte opstår inden et forløb begynder. Finder du ikke det svar du leder efter, er du velkommen til at skrive til mig.
+          </p>
         </div>
+
+        <!-- Accordion i bunden -->
+        <div class="faq__accordion">
+          {faqs.map((item, i) => (
+            <div class="faq__item" data-faq={i}>
+              <button class="faq__trigger" aria-expanded="false" aria-controls={`faq-answer-${i}`}>
+                <span class="faq__question">{item.question}</span>
+                <span class="faq__icon" aria-hidden="true">
+                  <svg class="icon-plus" width="28" height="28" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1"/>
+                    <line x1="18" y1="11" x2="18" y2="25" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                    <line x1="11" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="icon-minus" width="28" height="28" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1"/>
+                    <line x1="11" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="faq__body-wrap" id={`faq-answer-${i}`} aria-hidden="true">
+                <div class="faq__body-inner">
+                  <p class="faq__answer">{item.answer}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
-    ))}
+    </div>
   </section>
 </BaseLayout>
 
 <style>
 .faq {
-  padding-top: 6rem;
+  position: relative;
+}
+
+.faq__bg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: blur(2px);
+}
+
+.faq__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 6rem 4rem;
+}
+
+.faq__inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  padding-top: 15rem;
+}
+
+.faq__heading {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
+}
+
+.faq__right {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-top: 20rem;
+}
+
+.faq__body {
+  grid-column: 1;
+  grid-row: 2;
+  margin-top: 20rem;
+}
+
+.faq__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 10vw, 5rem);
+  text-transform: uppercase;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.faq__body {
+  width: 600px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: var(--color-primary);
+}
+
+.faq__mail-btn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  padding: 0.6rem 2rem;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.faq__mail-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+/* Accordion */
+.faq__accordion {
+  width: 100%;
+  margin-top: 8rem;
+  padding-bottom: 2rem;
 }
 
 .faq__item {
-  border-bottom: 1px solid var(--color-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .faq__trigger {
@@ -69,43 +186,39 @@ const faqs = [
   border: none;
   cursor: pointer;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 2rem var(--padding-inline);
+  padding: 1.25rem 0;
   text-align: left;
-  color: var(--color-dark);
+  color: var(--color-primary);
 }
 
 .faq__question {
   font-family: var(--font-body);
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  font-weight: 500;
-  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 700;
+  font-style: normal;
   line-height: 1.2;
-  color: var(--color-dark);
+  color: var(--color-primary);
 }
 
 .faq__icon {
   flex-shrink: 0;
-  margin-top: 4px;
-  color: var(--color-dark);
+  color: var(--color-primary);
 }
 
 .icon-minus { display: none; }
-
-/* Åben tilstand */
 .faq__item.is-open .icon-plus  { display: none; }
 .faq__item.is-open .icon-minus { display: block; }
 
-/* Svar */
-.faq__body {
+.faq__body-wrap {
   display: grid;
   grid-template-rows: 0fr;
   transition: grid-template-rows 0.35s ease;
 }
 
-.faq__body.is-open {
+.faq__body-wrap.is-open {
   grid-template-rows: 1fr;
 }
 
@@ -114,29 +227,86 @@ const faqs = [
 }
 
 .faq__answer {
-  padding: 0 var(--padding-inline) 2rem;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  padding: 0.5rem 0 1.25rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
   line-height: 1.7;
-  color: var(--color-dark);
-  max-width: 480px;
+  color: var(--color-primary);
+  opacity: 0.8;
+  max-width: 600px;
+}
+
+@media (max-width: 767px) {
+  .faq__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .faq__overlay {
+    position: relative;
+    padding: 0 1.5rem 3rem;
+  }
+
+  .faq__top {
+    grid-template-columns: 1fr auto;
+    column-gap: 5rem;
+    padding-top: 35%;
+  }
+
+  .faq__heading {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-size: 2rem;
+  }
+
+  .faq__body {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 8rem;
+    font-size: 0.75rem;
+    width: 100%;
+  }
+
+  .faq__right {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 2rem;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .faq__mail-btn {
+    font-size: 0.65rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .faq__question {
+    font-size: 1rem;
+  }
+
+  .faq__accordion {
+    margin-top: 20rem;
+    margin-bottom: 6rem;
+  }
 }
 </style>
 
 <script>
 document.querySelectorAll('.faq__item').forEach(item => {
   const trigger = item.querySelector('.faq__trigger') as HTMLButtonElement;
-  const body    = item.querySelector('.faq__body') as HTMLElement;
+  const body    = item.querySelector('.faq__body-wrap') as HTMLElement;
 
   trigger.addEventListener('click', () => {
     const isOpen = item.classList.contains('is-open');
 
-    // Luk alle andre
     document.querySelectorAll('.faq__item.is-open').forEach(other => {
       other.classList.remove('is-open');
-      other.querySelector('.faq__body')?.classList.remove('is-open');
+      other.querySelector('.faq__body-wrap')?.classList.remove('is-open');
       other.querySelector('.faq__trigger')?.setAttribute('aria-expanded', 'false');
-      other.querySelector('.faq__body')?.setAttribute('aria-hidden', 'true');
+      other.querySelector('.faq__body-wrap')?.setAttribute('aria-hidden', 'true');
     });
 
     if (!isOpen) {

@@ -1,0 +1,409 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const priser = [
+  {
+    title: 'Intro samtale',
+    subtitle: '30 minutter',
+    price: '0 DKK',
+    cta: { label: 'Book', type: 'modal' },
+  },
+  {
+    title: 'Individuel Psykoterapi session',
+    subtitle: '90 minutter',
+    price: '1350 DKK',
+    cta: { label: 'Book', type: 'modal' },
+  },
+  {
+    title: 'Mindfullness session',
+    subtitle: '(bookes ofte som forløb eller til grupper)\n90 minutter',
+    price: '1500 DKK',
+    cta: { label: 'Book', type: 'modal' },
+  },
+  {
+    title: 'Kundalini Yoga undervisning',
+    subtitle: 'Min. 5 personer',
+    price: 'Pris efter aftale',
+    cta: { label: 'Kontakt', type: 'link', href: '/kontakt' },
+  },
+];
+---
+
+<BaseLayout title="Priser" headerTheme="light">
+  <section class="priser">
+    <img src="/images/priser-baggrund_result.webp" alt="Priser" class="priser__bg" />
+
+    <div class="priser__overlay">
+      <div class="priser__inner">
+
+        <div class="priser__top">
+          <h1 class="priser__heading">Priser</h1>
+          <p class="priser__intro">
+            Nedenfor kan du udforske de forskellige forløb samt finde information om priser og sessionstyper.
+          </p>
+        </div>
+
+        <div class="priser__list">
+          {priser.map((item) => (
+            <div class="pris-row">
+              <div class="pris-row__left">
+                <span class="pris-row__title">{item.title}</span>
+                <span class="pris-row__subtitle">{item.subtitle}</span>
+              </div>
+              <div class="pris-row__right">
+                <span class="pris-row__price">{item.price}</span>
+                <hr class="pris-row__line" />
+                {item.cta.type === 'modal' ? (
+                  <button class="pris-btn" data-modal>{item.cta.label}</button>
+                ) : (
+                  <a href={item.cta.href} class="pris-btn">{item.cta.label}</a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="priser-modal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true">
+      <button class="modal-close" aria-label="Luk">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+          <line x1="2" y1="2" x2="18" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="18" y1="2" x2="2" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h2 class="modal-heading">OBS!</h2>
+      <p class="modal-body">
+        Da booking-funktionen endnu ikke er lanceret, kan du i mellemtiden få et indtryk af booking-flowet ved at klikke på knappen nedenfor.
+      </p>
+      <a
+        href="https://www.figma.com/proto/NdyhvMLUf8ItbbumPVgKRJ/afsluttende-projekt?node-id=634-4690&viewport=-1656%2C-340%2C0.14&t=eVGEWRnby7883l81-0&scaling=scale-down&content-scaling=fixed&starting-point-node-id=634%3A4690&show-proto-sidebar=1"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="modal-cta"
+      >Se booking flow</a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+/* ── Mobile first ── */
+
+.priser {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100svh;
+}
+
+.priser__bg {
+  position: absolute;
+  inset: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  object-fit: cover;
+  filter: blur(2px);
+}
+
+.priser__overlay {
+  position: relative;
+  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  min-height: 100svh;
+    padding: 0 clamp(0.5rem, 2vw, 1.5rem) 4rem;
+}
+
+.priser__inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+.priser__top {
+  padding-top: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+}
+
+.priser__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.priser__intro {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  color: var(--color-primary);
+  max-width: 100%;
+}
+
+.priser__intro,
+.pris-row,
+.pris-row__left,
+.pris-row__right {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.priser__intro,
+.pris-row__title,
+.pris-row__subtitle,
+.pris-row__price {
+  overflow-wrap: break-word;
+}
+
+.priser__list {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.pris-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pris-row__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pris-row__title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1rem;
+  color: var(--color-primary);
+}
+
+.pris-row__subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  opacity: 0.8;
+  white-space: pre-line;
+}
+
+.pris-row__right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pris-row__price {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--color-primary);
+  align-self: flex-end;
+}
+
+.pris-row__line {
+  width: 55%;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  margin: 0;
+  align-self: flex-end;
+}
+
+.pris-btn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  border-radius: 50px;
+  padding: 0.3rem 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  align-self: flex-end;
+}
+
+.pris-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
+/* ── Desktop ── */
+@media (min-width: 768px) {
+  .priser__overlay {
+    padding: 0 3rem 12rem;
+  }
+
+  .priser__top {
+    padding-top: clamp(10rem, 20vh, 15rem);
+    gap: clamp(8rem, 20vw, 20rem);
+  }
+
+  .priser__heading {
+    font-size: clamp(2.5rem, 10vw, 5rem);
+  }
+
+  .priser__intro {
+    font-size: 0.875rem;
+    max-width: 600px;
+  }
+
+  .priser__list {
+    margin-top: 12rem;
+    gap: 10rem;
+  }
+
+  .pris-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 0;
+  }
+
+  .pris-row__left {
+    gap: 1rem;
+  }
+
+  .pris-row__title {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  }
+
+  .pris-row__right {
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding-top: 10rem;
+  }
+
+  .pris-row__price {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    align-self: flex-start;
+  }
+
+  .pris-row__line {
+    width: 100%;
+    align-self: auto;
+  }
+
+  .pris-btn {
+    font-size: 0.7rem;
+    padding: 0.4rem 1.25rem;
+    align-self: auto;
+  }
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-box {
+  background: var(--color-primary);
+  width: min(460px, 90vw);
+  padding: 3rem 2.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-dark);
+  padding: 4px;
+}
+
+.modal-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--color-dark);
+  text-align: center;
+}
+
+.modal-body {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-dark);
+  text-align: center;
+  max-width: 320px;
+}
+
+.modal-cta {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  background-color: var(--color-accent-1);
+  border-radius: 50px;
+  padding: 0.6rem 1.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.modal-cta:hover {
+  opacity: 0.85;
+}
+
+</style>
+
+<script>
+const modal = document.getElementById('priser-modal') as HTMLElement;
+
+document.querySelectorAll('[data-modal]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+  });
+});
+
+document.querySelector('.modal-close')?.addEventListener('click', () => {
+  modal.classList.remove('is-open');
+  modal.setAttribute('aria-hidden', 'true');
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+});
+</script>

@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import VerticalSlider from '../components/VerticalSlider.astro';
+
+const slides = [
+  {
+    img: '/images/terapi-1-desktop_result.webp',
+    alt: 'Individuel psykoterapi',
+    text: 'Psykoterapi er et rum, hvor du kan tale frit og blive mødt med nærvær og forståelse. Det kan være en stor hjælp, hvis du oplever svære følelser, livskriser eller bare har brug for et trygt sted at reflektere over din situation.',
+  },
+  {
+    img: '/images/terapi-2-desktop_result.webp',
+    alt: 'Terapisession',
+    text: 'I terapien arbejder jeg helhedsorienteret med både samtale, intuition, krop og nervesystem. Du bliver mødt med forståelse, nærvær og plads til både det konkrete og det mere sjælelige. Målet er at skabe større selvtryghed, mere balance og en dybere kontakt til dig selv.',
+  },
+  {
+    img: '/images/terapi-3-desktop_result.webp',
+    alt: 'Psykoterapi forløb',
+    text: 'I terapien arbejder jeg helhedsorienteret med både samtale, intuition, krop og nervesystem. Du bliver mødt med forståelse, nærvær og plads til både det konkrete og det mere sjælelige — så du kan leve mere tilbundet og autentisk.',
+    cta: { label: 'Book', href: '/book' },
+  },
+];
+---
+
+<BaseLayout title="Individuel Psykoterapi">
+
+  <!-- Intro -->
+  <section class="ip-intro">
+    <h1 class="ip-intro__heading">Individuel<br />Psykoterapi</h1>
+    <div class="ip-intro__bottom">
+      <p class="ip-intro__body">
+        Find styrken i dig selv.<br />
+        Nedenfor bliver du præsenteret for mit arbejde med psykoterapi.
+      </p>
+      <a href="/om-mig#certifiseringer" class="ip-intro__cta">Se certifiseringer</a>
+    </div>
+  </section>
+
+  <!-- Slides -->
+  <VerticalSlider slides={slides} />
+
+</BaseLayout>
+
+<style>
+.ip-intro {
+  background-color: var(--color-primary);
+  padding: 8rem 1.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 55vh;
+}
+
+.ip-intro__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.ip-intro__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.ip-intro__body {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--color-secondary);
+  opacity: 0.8;
+  flex: 1;
+  min-width: 0;
+}
+
+.ip-intro__cta {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  background-color: var(--color-accent-1);
+  border-radius: 50px;
+  padding: 0.6rem 1.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.ip-intro__cta:hover {
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .ip-intro {
+    padding: 12rem 6rem 4rem;
+    min-height: 65vh;
+  }
+}
+</style>

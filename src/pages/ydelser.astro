@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageAccordion from '../components/ImageAccordion.astro';
+---
+
+<BaseLayout title="Ydelser">
+
+  <section class="ydelser-intro">
+    <div class="ydelser-intro__inner">
+      <div class="ydelser-intro__top">
+        <h1 class="ydelser-intro__heading">Ydelser og forløb</h1>
+        <div class="ydelser-intro__bottom">
+          <p class="ydelser-intro__body">
+            Jeg tilbyder forskellige forløb, der støtter dig i at skabe mere ro, bevidsthed og forbindelse til dig selv — både mentalt, følelsesmæssigt og kropsligt. Et trygt rum til fordybelse, selvindsigt og indre balance. Herunder kan du gå på opdagelse i de forskellige ydelser jeg tilbyder. 
+          </p>
+          <a href="/om-mig" class="btn-dark">Mød Kirsten</a>
+        </div>
+      </div>
+      <ImageAccordion />
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.ydelser-intro {
+  min-height: 1323px;
+  padding-top: 15rem;
+  padding-bottom: 6rem;
+  background-color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ydelser-intro__inner {
+  width: fit-content;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.ydelser-intro__top {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+}
+
+.ydelser-intro__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-secondary);
+  line-height: 1.1;
+}
+
+.ydelser-intro__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 3rem;
+}
+
+.ydelser-intro__body {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--color-secondary);
+  opacity: 0.85;
+  max-width: 800px;
+}
+
+.btn-dark {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  background-color: var(--color-accent-1);
+  border-radius: 50px;
+  padding: 0.6rem 1.75rem;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-dark:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .ydelser-intro {
+    min-height: unset;
+    padding: 18rem 1.5rem 4rem;
+  }
+
+  .ydelser-intro__inner {
+    width: 100%;
+  }
+
+  .ydelser-intro__bottom {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1.5rem;
+  }
+
+  .ydelser-intro__body {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+  }
+  .ydelser-intro__top {
+    gap: 5rem; 
+}
+</style>

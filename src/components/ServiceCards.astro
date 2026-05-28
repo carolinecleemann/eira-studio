@@ -62,7 +62,8 @@ const cards = [
   transition: filter 0.4s ease, transform 0.4s ease;
 }
 
-.service-card:hover .service-card__img {
+.service-card:hover .service-card__img,
+.service-card:active .service-card__img {
   filter: blur(0);
   transform: scale(1);
 }
@@ -107,27 +108,22 @@ const cards = [
 /* Mobil */
 @media (max-width: 767px) {
   .service-cards {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 0.75rem;
+    flex-direction: column;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    gap: 1rem;
     padding: 2rem var(--padding-inline);
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .service-cards::-webkit-scrollbar {
-    display: none;
   }
 
   .service-card {
-    flex-shrink: 0;
-    width: 72vw;
-    max-width: 280px;
-    scroll-snap-align: start;
+    flex: none;
+    width: 100%;
+    max-width: none;
+    scroll-snap-align: none;
+  }
+
+  .service-card__img {
+    aspect-ratio: 3 / 4;
   }
 }
 </style>

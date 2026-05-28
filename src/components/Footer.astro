@@ -295,6 +295,16 @@ const cvr = '12345678';
 @media (max-width: 767px) {
   .footer__topbar { display: none; }
 
+  .footer {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .footer__body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
   .footer__strip {
     display: flex;
     flex-direction: column;
@@ -316,11 +326,14 @@ const cvr = '12345678';
   .footer__main {
     grid-template-columns: 1fr;
     border-top: none;
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   .footer__col-nav {
     border-right: none;
     padding: 1.5rem 1.25rem 1rem;
+    min-width: 0;
   }
 
   .footer__col-nav ul { gap: 1rem; }
@@ -334,6 +347,7 @@ const cvr = '12345678';
     border-top: 1px solid var(--color-primary);
     padding: 1.5rem 1.25rem;
     min-height: 10rem;
+    min-width: 0;
   }
 
   .footer-sublink {

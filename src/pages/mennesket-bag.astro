@@ -1,0 +1,352 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const items = [
+  {
+    title: 'Konsekvent udvikling som behandler',
+    body: 'Arbejdet som terapeut kræver, at man selv udvikler sig og konstant holder fokus på egne blind-spots. Jeg har derfor gået i terapi løbende og supervision hver måned siden 2007. Derudover praktiserer jeg mindfulness og meditation og de holder sindet vågent og balanceret (eller i det mindste ved jeg, når jeg er i ubalance).',
+  },
+  {
+    title: 'Min drivkraft',
+    body: 'Jeg har interesseret mig for mennesker og forsøgt at forstå vores tanker, følelser og drivkraft hele mit liv. Det er det mest spændende i verden. Jeg har stor respekt for hver enkelt menneske og jeg er oprigtigt optaget af at forstå alle uden at generalisere. At dykke ned i den helt særlige psykologi, som hvert menneske rummer. At undersøge og udforske dette og alt muligt andet sammen med mine klienter elsker jeg. Jeg har ikke svarene, men jeg har værktøjer til at guide og undersøge vejen sammen med klienten.',
+  },
+  {
+    title: 'Etik og ansvar',
+    body: 'At finde sin psykoterapeut er et personligt anliggende. Du skal kunne opbygge tillid, du skal kunne være sårbar, og du skal kunne lade dig forstyrre. Så giv dig tid, vær nysgerrig og omhyggelig. Jeg er medlem af foreningen IDPF for at sikre min fortsatte faglige udvikling, og for at du har et sted at henvende dig, hvis dine grænser ikke er blevet respekteret.',
+  },
+];
+---
+
+<BaseLayout title="Mennesket bag">
+
+  <!-- 1. Intro -->
+  <section class="mb-intro">
+    <h1 class="mb-intro__heading">Mennesket bag</h1>
+  </section>
+
+  <!-- 2. Video -->
+  <section class="mb-video">
+    <div class="mb-video__wrap">
+      <video class="mb-video__el" poster="/images/m-intro-1-desktop_result.webp" controls preload="none">
+        <source src="/videos/Sequence 03.mp4" type="video/mp4" />
+      </video>
+      <button class="mb-video__play" aria-label="Afspil video">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="21" stroke="white" stroke-width="1.5"/>
+          <polygon points="18,14 32,22 18,30" fill="white"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- 3. Quote -->
+  <section class="mb-quote">
+    <p class="mb-quote__text">
+      Jeg vil gerne hjælpe dig med at finde hjem til dig selv ... til indre ro, mere glæde og den befriende følelse af at stå stærkt — både som dig alene og som dig i relationen til andre mennesker. Jeg vil møde dig der, hvor du er i dit liv, og gennem samtaler med selvindsigt og mentale strategier, vil du blive understøttet og styrket i at finde og være præcis, den du er.
+    </p>
+  </section>
+
+  <!-- 4. Baggrund -->
+  <section class="mb-baggrund">
+    <h2 class="mb-baggrund__heading">Baggrund</h2>
+    <div class="mb-baggrund__image">
+      <picture>
+        <img src="/images/m-intro-1-desktop_result.webp" alt="Kirsten" />
+      </picture>
+    </div>
+    <div class="mb-baggrund__accordion">
+      {items.map((item, i) => (
+        <div class="acc-item" data-acc={i}>
+          <button class="acc-trigger" aria-expanded="false" aria-controls={`mb-acc-body-${i}`}>
+            <h3 class="acc-title">{item.title}</h3>
+            <span class="acc-circle" aria-hidden="true">
+              <svg class="icon-plus" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                <line x1="14" y1="8" x2="14" y2="20" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+              <svg class="icon-minus" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+                <line x1="8" y1="14" x2="20" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="acc-body" id={`mb-acc-body-${i}`} aria-hidden="true">
+            <div class="acc-body-inner">
+              <p class="acc-text">{item.body}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+/* ── Intro ── */
+.mb-intro {
+  background-color: var(--color-primary);
+  padding: 20rem 1.5rem 4rem;
+}
+
+.mb-intro__heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 4rem);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ── Video ── */
+.mb-video {
+  background-color: var(--color-primary);
+  padding: 10rem 1.5rem 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.mb-video__wrap {
+  position: relative;
+  width: 90%;
+  aspect-ratio: 17 / 9;
+  background: #000;
+  cursor: pointer;
+}
+
+.mb-video__el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mb-video__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.mb-video__play:hover {
+  opacity: 0.8;
+}
+
+.mb-video__play.is-hidden {
+  display: none;
+}
+
+/* ── Quote ── */
+.mb-quote {
+  background-color: var(--color-primary);
+  padding: 8rem 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.mb-quote__text {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+  line-height: 1.9;
+  color: var(--color-secondary);
+  opacity: 0.85;
+  font-style: italic;
+  text-align: center;
+  max-width: 580px;
+}
+
+/* ── Baggrund ── */
+.mb-baggrund {
+  background-color: var(--color-primary);
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "heading image"
+    "accordion image";
+}
+
+.mb-baggrund__heading {
+  grid-area: heading;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  padding: 0 3rem;
+}
+
+.mb-baggrund__image {
+  grid-area: image;
+}
+
+.mb-baggrund__image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.mb-baggrund__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mb-baggrund__accordion {
+  grid-area: accordion;
+  padding: 2rem 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* ── Accordion items ── */
+.acc-item {
+  border-bottom: 1px solid rgba(122, 42, 42, 0.3);
+}
+
+.acc-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  text-align: left;
+  color: var(--color-secondary);
+}
+
+.acc-title {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.2;
+}
+
+.acc-circle {
+  flex-shrink: 0;
+  margin-top: 4px;
+  color: var(--color-secondary);
+}
+
+.icon-minus { display: none; }
+
+.acc-item.is-open .icon-plus  { display: none; }
+.acc-item.is-open .icon-minus { display: block; }
+
+.acc-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.acc-body.is-open {
+  grid-template-rows: 1fr;
+}
+
+.acc-body-inner {
+  overflow: hidden;
+}
+
+.acc-text {
+  padding: 0 0 2rem;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--color-secondary);
+  opacity: 0.85;
+}
+
+/* ── Desktop ── */
+@media (min-width: 768px) {
+  .mb-intro {
+    padding: 20rem 6rem 4rem;
+  }
+
+  .mb-video {
+    padding: 8rem 6rem 6rem;
+  }
+
+  .mb-quote {
+    padding: 10rem 4rem;
+  }
+}
+
+/* ── Mobil ── */
+@media (max-width: 767px) {
+  .mb-baggrund {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "heading"
+      "image"
+      "accordion";
+  }
+
+  .mb-baggrund__heading {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .mb-baggrund__image img {
+    height: auto;
+    object-fit: unset;
+  }
+
+  .mb-baggrund__accordion {
+    padding: 1.5rem 1.5rem 2rem;
+  }
+}
+</style>
+
+<script>
+const playBtn = document.querySelector('.mb-video__play') as HTMLButtonElement;
+const video   = document.querySelector('.mb-video__el') as HTMLVideoElement;
+
+playBtn?.addEventListener('click', () => {
+  video.play();
+  playBtn.classList.add('is-hidden');
+});
+
+video?.addEventListener('pause', () => {
+  playBtn.classList.remove('is-hidden');
+});
+
+document.querySelectorAll('.acc-item').forEach(item => {
+  const trigger = item.querySelector('.acc-trigger') as HTMLButtonElement;
+  const body    = item.querySelector('.acc-body') as HTMLElement;
+
+  trigger.addEventListener('click', () => {
+    const isOpen = item.classList.contains('is-open');
+
+    document.querySelectorAll('.acc-item.is-open').forEach(other => {
+      other.classList.remove('is-open');
+      other.querySelector('.acc-body')?.classList.remove('is-open');
+      other.querySelector('.acc-trigger')?.setAttribute('aria-expanded', 'false');
+      other.querySelector('.acc-body')?.setAttribute('aria-hidden', 'true');
+    });
+
+    if (!isOpen) {
+      item.classList.add('is-open');
+      body.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      body.setAttribute('aria-hidden', 'false');
+    }
+  });
+});
+</script>
