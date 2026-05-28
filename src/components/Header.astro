@@ -40,11 +40,14 @@ const navLinks = [
     <a href="/" class="header__logo" aria-label="Eira Studio — forside">
       <img src={theme === 'light' ? '/images/logolight.svg' : '/images/logodark.svg'} alt="Eira Studio logo" class="logo-svg" />
     </a>
-    <button class="burger" aria-label="Åbn menu" aria-expanded="false" aria-controls="menu-overlay">
-      <span class="burger__line"></span>
-      <span class="burger__line"></span>
-      <span class="burger__line"></span>
-    </button>
+    <div class="header__right">
+      <a href="/book" class="header__book-btn">Book</a>
+      <button class="burger" aria-label="Åbn menu" aria-expanded="false" aria-controls="menu-overlay">
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -130,6 +133,39 @@ const navLinks = [
 
 .logo-svg { width: 52px; height: auto; }
 
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header__book-btn {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #5C2D1E;
+  border: 1px solid #5C2D1E;
+  border-radius: 50px;
+  padding: 0.4rem 1.1rem;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.header__book-btn:hover {
+  background-color: #5C2D1E;
+  color: var(--color-primary);
+}
+
+.header--light .header__book-btn {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.header--light .header__book-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+}
+
 /* Burger */
 .burger {
   background: none;
@@ -157,6 +193,36 @@ const navLinks = [
 
 .header--light .burger__line {
   background-color: var(--color-primary);
+}
+
+/* Når header--light scroller forbi hero → skift til dark */
+.header--light.is-scrolled .burger__line {
+  background-color: #5C2D1E;
+}
+
+.header--light.is-scrolled .header__book-btn {
+  color: #5C2D1E;
+  border-color: #5C2D1E;
+}
+
+.header--light.is-scrolled .header__book-btn:hover {
+  background-color: #5C2D1E;
+  color: var(--color-primary);
+}
+
+/* Når dark header scroller ned til vslider → skift til light */
+.header.is-light-scroll .burger__line {
+  background-color: var(--color-primary);
+}
+
+.header.is-light-scroll .header__book-btn {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.header.is-light-scroll .header__book-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
 }
 
 /* ---- Menu Overlay ---- */
@@ -418,4 +484,38 @@ overlay.querySelectorAll('.sub-link').forEach(link => {
 overlay.querySelectorAll('.menu-link:not(.has-sub)').forEach(link => {
   link.addEventListener('click', closeMenu);
 });
+
+const header = document.querySelector('.header') as HTMLElement;
+const logo   = header?.querySelector('.logo-svg') as HTMLImageElement;
+
+// Forsiden: light → dark når hero scroller ud af syne
+const hero = document.querySelector('.hero') as HTMLElement;
+if (header?.classList.contains('header--light') && hero) {
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      header.classList.remove('is-scrolled');
+      if (logo) logo.src = '/images/logolight.svg';
+    } else {
+      header.classList.add('is-scrolled');
+      if (logo) logo.src = '/images/logodark.svg';
+    }
+  }, { threshold: 0 }).observe(hero);
+}
+
+// Ydelsessider: dark → light når intro-sektionen forlader viewport
+const vslider = document.querySelector('.vslider') as HTMLElement;
+if (!header?.classList.contains('header--light') && vslider) {
+  const introSection = document.querySelector('main section:first-child') as HTMLElement;
+  if (introSection) {
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        header.classList.remove('is-light-scroll');
+        if (logo) logo.src = '/images/logodark.svg';
+      } else {
+        header.classList.add('is-light-scroll');
+        if (logo) logo.src = '/images/logolight.svg';
+      }
+    }, { threshold: 0 }).observe(introSection);
+  }
+}
 </script>

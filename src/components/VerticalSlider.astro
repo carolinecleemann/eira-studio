@@ -100,11 +100,11 @@ const { slides } = Astro.props;
 
 .vslider__text {
   font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 0.75rem;
+  font-weight: 400;
+  font-size: 1rem;
   line-height: 1.7;
   color: var(--color-primary);
-  max-width: 480px;
+  max-width: 800px;
   opacity: 0.9;
 }
 
@@ -124,6 +124,13 @@ const { slides } = Astro.props;
 .vslider__cta:hover {
   background-color: var(--color-primary);
   color: var(--color-dark);
+}
+
+@media (max-width: 767px) {
+  .vslider__text {
+    font-size: 0.8rem;
+    width: 60%;
+  }
 }
 
 /* Navigation */
