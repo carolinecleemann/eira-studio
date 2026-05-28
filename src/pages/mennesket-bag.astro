@@ -27,15 +27,14 @@ const items = [
   <!-- 2. Video -->
   <section class="mb-video">
     <div class="mb-video__wrap">
-      <video class="mb-video__el" poster="/images/m-intro-1-desktop_result.webp" controls preload="none">
-        <source src="/videos/Sequence 03.mp4" type="video/mp4" />
-      </video>
-      <button class="mb-video__play" aria-label="Afspil video">
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-          <circle cx="22" cy="22" r="21" stroke="white" stroke-width="1.5"/>
-          <polygon points="18,14 32,22 18,30" fill="white"/>
-        </svg>
-      </button>
+      <iframe
+        class="mb-video__el"
+        src="https://www.youtube.com/embed/VpqbuVrIzs8?rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        frameborder="0"
+        title="Kirsten video"
+      ></iframe>
     </div>
   </section>
 
@@ -119,28 +118,8 @@ const items = [
 .mb-video__el {
   width: 100%;
   height: 100%;
-  object-fit: cover;
   display: block;
-}
-
-.mb-video__play {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
   border: none;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.mb-video__play:hover {
-  opacity: 0.8;
-}
-
-.mb-video__play.is-hidden {
-  display: none;
 }
 
 /* ── Quote ── */
@@ -315,18 +294,6 @@ const items = [
 </style>
 
 <script>
-const playBtn = document.querySelector('.mb-video__play') as HTMLButtonElement;
-const video   = document.querySelector('.mb-video__el') as HTMLVideoElement;
-
-playBtn?.addEventListener('click', () => {
-  video.play();
-  playBtn.classList.add('is-hidden');
-});
-
-video?.addEventListener('pause', () => {
-  playBtn.classList.remove('is-hidden');
-});
-
 document.querySelectorAll('.acc-item').forEach(item => {
   const trigger = item.querySelector('.acc-trigger') as HTMLButtonElement;
   const body    = item.querySelector('.acc-body') as HTMLElement;
