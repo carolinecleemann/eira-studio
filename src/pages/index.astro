@@ -77,7 +77,7 @@ import ServiceCards from '../components/ServiceCards.astro';
   <!-- Om mig teaser -->
   <section class="om-mig-teaser">
     <div class="om-mig-teaser__left">
-      <a href="/om-mig" class="btn-dark om-mig-teaser__btn">Mød Kirsten</a>
+      <a href="/moed-kirsten" class="btn-dark om-mig-teaser__btn">Mød Kirsten</a>
       <img src="/images/forside-stemning-2_result.webp" alt="Kirsten" class="om-mig-teaser__img" />
     </div>
     <div class="om-mig-teaser__text">
@@ -283,7 +283,7 @@ import ServiceCards from '../components/ServiceCards.astro';
 .intro-section__heading {
   font-family: var(--font-body);
   font-weight: 700;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   color: var(--color-secondary);
   line-height: 1.2;
@@ -354,7 +354,7 @@ import ServiceCards from '../components/ServiceCards.astro';
   padding-top: 4rem;
   padding-bottom: 4rem;
   gap: 4rem;
-  align-items: start;
+  align-items: stretch;
   min-height: 710px;
 }
 
@@ -378,11 +378,11 @@ import ServiceCards from '../components/ServiceCards.astro';
 .om-mig-teaser__text {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: flex-end;
   text-align: right;
-  gap: 1.25rem;
   padding-top: 4rem;
+  padding-bottom: 1rem;
   padding-right: var(--padding-inline);
 }
 
@@ -390,7 +390,7 @@ import ServiceCards from '../components/ServiceCards.astro';
   font-family: var(--font-body);
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 700;
-  font-style: italic;
+  font-style: normal;
   color: var(--color-secondary);
   line-height: 1.2;
 }
