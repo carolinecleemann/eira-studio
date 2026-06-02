@@ -4,6 +4,8 @@ interface Slide {
   imgMobile?: string;
   alt: string;
   text: string;
+  width: number;
+  height: number;
   cta?: { label: string; href: string };
 }
 
@@ -24,7 +26,7 @@ const { slides } = Astro.props;
           {slide.imgMobile && (
             <source srcset={slide.imgMobile} media="(max-width: 767px)" />
           )}
-          <img src={slide.img} alt={slide.alt} class="vslider__img" />
+          <img src={slide.img} alt={slide.alt} class="vslider__img" width={slide.width} height={slide.height} />
         </picture>
         <div class="vslider__content">
           <p class="vslider__text">{slide.text}</p>
